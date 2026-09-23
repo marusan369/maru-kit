@@ -24,18 +24,6 @@ const materials = [
         available: true
     },
     {
-        name: "バウンド移動（ゆっくり）",
-        video: "preview/バウンド移動_ゆっくり.mp4",
-        zip: "zip/bound_idou_yukkuri.zip",
-        available: true
-    },
-    {
-        name: "バウンド移動（はやい）",
-        video: "preview/バウンド移動_早い.mp4",
-        zip: "zip/bound_idou_hayai.zip",
-        available: true
-    },
-    {
         name: "横回転（ゆっくり）",
         video: "preview/横回転_ゆっくり.mp4",
         zip: "zip/yoko_kaiten_yukkuri.zip",
@@ -47,6 +35,31 @@ const materials = [
         zip: "zip/yoko_kaiten_hayai.zip",
         available: true
     },
+    {
+        name: "縦回転（ゆっくり）",
+        video: "preview/縦回転_ゆっくり.mp4",
+        zip: "zip/tate_kaiten_yukkuri.zip",
+        available: true
+    },
+    {
+        name: "縦回転（はやい）",
+        video: "preview/縦回転_早い.mp4",
+        zip: "zip/tate_kaiten_hayai.zip",
+        available: true
+    },
+    {
+        name: "バウンド移動（ゆっくり）",
+        video: "preview/バウンド移動_ゆっくり.mp4",
+        zip: "zip/bound_idou_yukkuri.zip",
+        available: true
+    },
+    {
+        name: "バウンド移動（はやい）",
+        video: "preview/バウンド移動_早い.mp4",
+        zip: "zip/bound_idou_hayai.zip",
+        available: true
+    },
+
 
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
