@@ -187,7 +187,7 @@
             opacity: 0.75;
         }
 
-        /* 素材グリッド (4列×2段) */
+        /* 素材グリッド (自動生成される場所) */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -336,90 +336,8 @@
             気に入っていただけたなら、<a href="https://www.amazon.jp/hz/wishlist/ls/1QBBDR3F83E00?ref_=wl_share" target="_blank" rel="noopener noreferrer">Amazon欲しいものリスト</a>からのご支援もぜひお待ちしております。</p>
         </div>
 
-        <!-- 素材一覧 (4×2グリッド) -->
-        <div class="grid-container">
-            <!-- 1：時計回り（ゆっくり） -->
-            <div class="material-card">
-                <div class="preview-box">
-                    <video class="preview-video" src="preview/時計回り_ゆっくり.mp4" muted playsinline preload="metadata"></video>
-                </div>
-                <h4 class="material-name">時計回り（ゆっくり）</h4>
-                <div class="card-buttons">
-                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
-                    <a href="zip/tokeimawari_yukkuri.zip" class="btn btn-download">DL</a>
-                </div>
-            </div>
-
-            <!-- 2：時計回り（早い） -->
-            <div class="material-card">
-                <div class="preview-box">
-                    <video class="preview-video" src="preview/時計回り_早い.mp4" muted playsinline preload="metadata"></video>
-                </div>
-                <h4 class="material-name">時計回り（早い）</h4>
-                <div class="card-buttons">
-                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
-                    <a href="zip/tokeimawari_hayai.zip" class="btn btn-download">DL</a>
-                </div>
-            </div>
-
-            <!-- 3：反時計回り（ゆっくり） -->
-            <div class="material-card">
-                <div class="preview-box">
-                    <video class="preview-video" src="preview/反時計回り_ゆっくり.mp4" muted playsinline preload="metadata"></video>
-                </div>
-                <h4 class="material-name">反時計回り（ゆっくり）</h4>
-                <div class="card-buttons">
-                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
-                    <a href="zip/hantokeimawari_yukkuri.zip" class="btn btn-download">DL</a>
-                </div>
-            </div>
-
-            <!-- 4：反時計回り（早い） -->
-            <div class="material-card">
-                <div class="preview-box">
-                    <video class="preview-video" src="preview/反時計回り_早い.mp4" muted playsinline preload="metadata"></video>
-                </div>
-                <h4 class="material-name">反時計回り（早い）</h4>
-                <div class="card-buttons">
-                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
-                    <a href="zip/hantokeimawari_hayai.zip" class="btn btn-download">DL</a>
-                </div>
-            </div>
-
-            <!-- 5〜8：準備中 -->
-            <div class="material-card">
-                <div class="preview-box"></div>
-                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
-                <div class="card-buttons">
-                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
-                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
-                </div>
-            </div>
-            <div class="material-card">
-                <div class="preview-box"></div>
-                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
-                <div class="card-buttons">
-                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
-                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
-                </div>
-            </div>
-            <div class="material-card">
-                <div class="preview-box"></div>
-                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
-                <div class="card-buttons">
-                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
-                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
-                </div>
-            </div>
-            <div class="material-card">
-                <div class="preview-box"></div>
-                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
-                <div class="card-buttons">
-                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
-                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
-                </div>
-            </div>
-        </div>
+        <!-- 素材一覧（JavaScriptでここにカードが自動で埋め込まれます） -->
+        <div class="grid-container" id="materialGrid"></div>
     </div>
 
     <!-- フッター -->
@@ -427,8 +345,44 @@
         &copy; 好きな画像でOBS素材を作れる「まるキット」
     </footer>
 
-    <!-- 再生・停止・終了時の挙動を制御するJavaScript -->
+    <!-- 素材データを読み込んで描画するJavaScript -->
+    <script src="materials.js"></script>
     <script>
+        const gridContainer = document.getElementById('materialGrid');
+
+        // materials.js で定義された配列をもとにカードを自動生成
+        materials.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'material-card';
+
+            if (item.available) {
+                // 公開中の素材
+                card.innerHTML = `
+                    <div class="preview-box">
+                        <video class="preview-video" src="${item.video}" muted playsinline preload="metadata"></video>
+                    </div>
+                    <h4 class="material-name">${item.name}</h4>
+                    <div class="card-buttons">
+                        <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
+                        <a href="${item.zip}" class="btn btn-download">DL</a>
+                    </div>
+                `;
+            } else {
+                // 準備中の素材
+                card.innerHTML = `
+                    <div class="preview-box"></div>
+                    <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
+                    <div class="card-buttons">
+                        <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
+                        <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
+                    </div>
+                `;
+            }
+
+            gridContainer.appendChild(card);
+        });
+
+        // プレビュー動画の再生・停止を制御する処理
         document.querySelectorAll('.material-card').forEach(card => {
             const button = card.querySelector('.toggle-preview-btn');
             const video = card.querySelector('.preview-video');
