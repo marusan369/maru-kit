@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>好きな画像でOBS素材を作れる「まるキット」</title>
+    
+    <!-- ファビコン・アイコン設定 -->
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <!-- OGP (SNSシェア用メタタグ) -->
+    <meta property="og:title" content="好きな画像でOBS素材を作れる「まるキット」">
+    <meta property="og:description" content="好きな画像を使って、配信や動画で使えるお洒落なOBS素材を無料で簡単に作れるサイトです！商用利用OK。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marusan369.github.io/maru-kit/">
+    <meta property="og:image" content="https://marusan369.github.io/maru-kit/ogp-image.png">
+    
+    <!-- X (Twitter) カード設定 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@marusan_369xii">
+
+    <style>
+        :root {
+            --bg-color: #f7f8f9;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-sub: #666666;
+            --header-bg: #1b8a5a;
+            --header-text: #ffffff;
+            --primary-color: #1b8a5a;
+            --primary-hover: #156d47;
+            --border-color: #eaeaea;
+            --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.03);
+            --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.07);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            flex: 1;
+        }
+
+        /* ヘッダー部分 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            background-color: var(--header-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(27, 138, 90, 0.15);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .site-title-link {
+            text-decoration: none;
+            color: var(--header-text);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            transition: opacity 0.2s ease;
+        }
+
+        .site-title-link:hover {
+            opacity: 0.8;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .badge-free {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--header-text);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-terms {
+            background-color: transparent;
+            color: var(--header-text);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-terms:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--header-text);
+        }
+
+        /* 使い方ガイドセクション */
+        .guide-box {
+            background-color: var(--card-bg);
+            border-left: 3px solid var(--primary-color);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .guide-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .guide-steps {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .guide-steps li {
+            margin-bottom: 6px;
+        }
+
+        .guide-steps li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 注意書き・サポートセクション */
+        .notice-box {
+            background-color: var(--card-bg);
+            border-left: 3px solid var(--text-sub);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 36px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .notice-box h3 {
+            margin: 0 0 6px 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .notice-box p {
+            margin: 0 0 12px 0;
+        }
+
+        .notice-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .notice-box a {
+            color: var(--primary-color);
+            text-decoration: underline;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .notice-box a:hover {
+            opacity: 0.75;
+        }
+
+        /* 素材グリッド (4列×2段) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .material-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .material-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .preview-box {
+            width: 100%;
+            height: 150px;
+            background-color: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .preview-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none; 
+        }
+
+        .material-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            margin: 0;
+            color: var(--text-main);
+            letter-spacing: 0.02em;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 9px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-preview {
+            background-color: #f2f4f3;
+            color: var(--text-sub);
+        }
+
+        .btn-preview:hover {
+            background-color: #e5e8e6;
+            color: var(--text-main);
+        }
+
+        .btn-preview.playing {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-download {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-download:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* フッター部分 */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 共通ヘッダー -->
+        <header>
+            <a href="index.html" class="site-title-link">好きな画像でOBS素材を作れる「まるキット」</a>
+            <div class="header-right">
+                <span class="badge-free">無料・商用利用OK</span>
+                <a href="terms.html" class="btn-terms">利用規約</a>
+            </div>
+        </header>
+
+        <!-- カンタン使い方ガイド -->
+        <div class="guide-box">
+            <h3>「まるキット」の使い方</h3>
+            <ol class="guide-steps">
+                <li>お好みの素材の「DL」ボタンからZIPファイルをダウンロードして解凍（展開）します。</li>
+                <li>フォルダ内に好みの画像を入れて、指定の名前にリネームします。</li>
+                <li>OBSのソースにあるブラウザに指定のファイルを読み込ませれば、すぐに配信や動画でご利用いただけます！<br>
+                <span style="font-size: 0.85rem; color: var(--text-sub);">※詳しくはフォルダ内のテキストファイルをご覧ください。</span></li>
+            </ol>
+        </div>
+
+        <!-- 注意書き・サポートセクション -->
+        <div class="notice-box">
+            <h3>ご利用前の注意点・サポート</h3>
+            <p>素材画像の推奨サイズは<strong>1080×1080px以内</strong>です。極端に大きな画像を使用すると、アニメーションの仕様上はみ出したり切れたりする場合がありますので、あらかじめ縮小してご使用ください。</p>
+            <p>不具合報告や使い方の不明点などは、<a href="https://x.com/marusan_369xii" target="_blank" rel="noopener noreferrer">制作者のX（Twitter）</a>までお気軽にご連絡ください。<br>
+            気に入っていただけたなら、<a href="https://www.amazon.jp/hz/wishlist/ls/1QBBDR3F83E00?ref_=wl_share" target="_blank" rel="noopener noreferrer">Amazon欲しいものリスト</a>からのご支援もぜひお待ちしております。</p>
+        </div>
+
+        <!-- 素材一覧 (4×2グリッド) -->
+        <div class="grid-container">
+            <!-- 1：時計回り（ゆっくり） -->
+            <div class="material-card">
+                <div class="preview-box">
+                    <video class="preview-video" src="preview/時計回り_ゆっくり.mp4" muted playsinline preload="metadata"></video>
+                </div>
+                <h4 class="material-name">時計回り（ゆっくり）</h4>
+                <div class="card-buttons">
+                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
+                    <a href="zip/tokeimawari_yukkuri.zip" class="btn btn-download">DL</a>
+                </div>
+            </div>
+
+            <!-- 2：時計回り（早い） -->
+            <div class="material-card">
+                <div class="preview-box">
+                    <video class="preview-video" src="preview/時計回り_早い.mp4" muted playsinline preload="metadata"></video>
+                </div>
+                <h4 class="material-name">時計回り（早い）</h4>
+                <div class="card-buttons">
+                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
+                    <a href="zip/tokeimawari_hayai.zip" class="btn btn-download">DL</a>
+                </div>
+            </div>
+
+            <!-- 3：反時計回り（ゆっくり） -->
+            <div class="material-card">
+                <div class="preview-box">
+                    <video class="preview-video" src="preview/反時計回り_ゆっくり.mp4" muted playsinline preload="metadata"></video>
+                </div>
+                <h4 class="material-name">反時計回り（ゆっくり）</h4>
+                <div class="card-buttons">
+                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
+                    <a href="zip/hantokeimawari_yukkuri.zip" class="btn btn-download">DL</a>
+                </div>
+            </div>
+
+            <!-- 4：反時計回り（早い） -->
+            <div class="material-card">
+                <div class="preview-box">
+                    <video class="preview-video" src="preview/反時計回り_早い.mp4" muted playsinline preload="metadata"></video>
+                </div>
+                <h4 class="material-name">反時計回り（早い）</h4>
+                <div class="card-buttons">
+                    <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
+                    <a href="zip/hantokeimawari_hayai.zip" class="btn btn-download">DL</a>
+                </div>
+            </div>
+
+            <!-- 5〜8：準備中 -->
+            <div class="material-card">
+                <div class="preview-box"></div>
+                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
+                <div class="card-buttons">
+                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
+                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="preview-box"></div>
+                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
+                <div class="card-buttons">
+                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
+                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="preview-box"></div>
+                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
+                <div class="card-buttons">
+                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
+                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="preview-box"></div>
+                <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
+                <div class="card-buttons">
+                    <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
+                    <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer>
+        &copy; 好きな画像でOBS素材を作れる「まるキット」
+    </footer>
+
+    <!-- 再生・停止・終了時の挙動を制御するJavaScript -->
+    <script>
+        document.querySelectorAll('.material-card').forEach(card => {
+            const button = card.querySelector('.toggle-preview-btn');
+            const video = card.querySelector('.preview-video');
+
+            if (!button || !video) return;
+
+            button.addEventListener('click', function() {
+                if (video.paused) {
+                    video.currentTime = 0;
+                    video.style.display = 'block';
+                    video.play();
+                    this.textContent = '停止';
+                    this.classList.add('playing');
+                } else {
+                    video.pause();
+                    video.currentTime = 0;
+                    video.style.display = 'none';
+                    this.textContent = 'プレビュー';
+                    this.classList.remove('playing');
+                }
+            });
+
+            video.addEventListener('ended', function() {
+                video.pause();
+                video.currentTime = 0;
+                video.style.display = 'none';
+                button.textContent = 'プレビュー';
+                button.classList.remove('playing');
+            });
+        });
+    </script>
+</body>
+</html>
