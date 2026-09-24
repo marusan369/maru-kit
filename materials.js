@@ -60,6 +60,18 @@ const materials = [
         available: true
     },
     {
+        name: "ゆれる（上）",
+        video: "preview/ゆれる_上.mp4",
+        zip: "zip/yureru_ue.zip",
+        available: true
+    },
+    {
+        name: "ゆれる（下）",
+        video: "preview/ゆれる_下.mp4",
+        zip: "zip/yureru_sita.zip",
+        available: true
+    },
+    {
         name: "バウンド移動（ゆっくり）",
         video: "preview/バウンド移動_ゆっくり.mp4",
         zip: "zip/bound_idou_yukkuri.zip",
