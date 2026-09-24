@@ -85,7 +85,8 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .badge-free {
@@ -98,11 +99,11 @@
             letter-spacing: 0.03em;
         }
 
-        .btn-terms {
+        .btn-header-link {
             background-color: transparent;
             color: var(--header-text);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 6px;
             text-decoration: none;
             font-size: 0.85rem;
@@ -110,42 +111,9 @@
             transition: all 0.2s ease;
         }
 
-        .btn-terms:hover {
+        .btn-header-link:hover {
             background-color: rgba(255, 255, 255, 0.1);
             border-color: var(--header-text);
-        }
-
-        /* 使い方ガイドセクション */
-        .guide-box {
-            background-color: var(--card-bg);
-            border-left: 3px solid var(--primary-color);
-            padding: 20px 24px;
-            border-radius: 0 12px 12px 0;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            line-height: 1.7;
-            color: var(--text-sub);
-            box-shadow: var(--shadow-subtle);
-        }
-
-        .guide-box h3 {
-            margin: 0 0 10px 0;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .guide-steps {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .guide-steps li {
-            margin-bottom: 6px;
-        }
-
-        .guide-steps li:last-child {
-            margin-bottom: 0;
         }
 
         /* 注意書き・サポートセクション */
@@ -313,23 +281,13 @@
             <a href="index.html" class="site-title-link">好きなPNG画像でOBS素材を作れる「まるキット」</a>
             <div class="header-right">
                 <span class="badge-free">無料・商用利用OK</span>
-                <a href="terms.html" class="btn-terms">利用規約</a>
+                <a href="howto.html" class="btn-header-link">使い方</a>
+                <a href="terms.html" class="btn-header-link">利用規約</a>
             </div>
         </header>
 
-        <!-- カンタン使い方ガイド -->
-        <div class="guide-box">
-            <h3>「まるキット」の使い方</h3>
-            <ol class="guide-steps">
-                <li>お好みの素材の「DL」ボタンからZIPファイルをダウンロードして解凍（展開）します。</li>
-                <li>フォルダ内に好みのPNG画像を入れて、指定の名前にリネームします。</li>
-                <li>OBSのソースにあるブラウザに指定のファイルを読み込ませれば、すぐに配信や動画でご利用いただけます！<br>
-                <span style="font-size: 0.85rem; color: var(--text-sub);">※詳しくはフォルダ内のテキストファイルをご覧ください。</span></li>
-            </ol>
-        </div>
-
         <!-- 注意書き・サポートセクション -->
-       <div class="notice-box">
+        <div class="notice-box">
             <h3>ご利用前の注意点・サポート</h3>
             <p style="color: #d9534f; font-weight: bold;">※JPG、GIF、APNG等の画像には対応していません。PNG形式の画像のみ対応しています。</p>
             

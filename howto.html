@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使い方ガイド - 好きな画像でOBS素材を作れる「まるキット」</title>
+    <style>
+        :root {
+            --bg-color: #f7f8f9;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-sub: #666666;
+            --header-bg: #1b8a5a;
+            --header-text: #ffffff;
+            --primary-color: #1b8a5a;
+            --border-color: #eaeaea;
+            --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.03);
+            --code-bg: #f1f3f5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            flex: 1;
+        }
+
+        /* ヘッダー部分 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            background-color: var(--header-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(27, 138, 90, 0.15);
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .site-title-link {
+            text-decoration: none;
+            color: var(--header-text);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            transition: opacity 0.2s ease;
+        }
+
+        .site-title-link:hover {
+            opacity: 0.8;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .badge-free {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--header-text);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        /* コンテンツを表示するカードボックス */
+        .terms-box {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 40px;
+        }
+
+        .terms-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            letter-spacing: 0.03em;
+        }
+
+        .terms-section {
+            margin-bottom: 32px;
+        }
+
+        .terms-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .terms-section h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terms-section p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-sub);
+            margin: 0 0 10px 0;
+        }
+
+        .terms-section ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-sub);
+        }
+
+        .terms-section li {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+
+        /* 注目させたいボックス */
+        .notice-box {
+            background-color: #e6f4ea;
+            border-left: 4px solid var(--primary-color);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+
+        .notice-box p {
+            color: #135d3d;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+
+        /* トップに戻るボタン用エリア */
+        .back-link-area {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-back:hover {
+            opacity: 0.85;
+        }
+
+        /* フッター */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .terms-box {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 共通ヘッダー -->
+        <header>
+            <a href="index.html" class="site-title-link">好きな画像でOBS素材を作れる「まるキット」</a>
+            <div class="header-right">
+                <span class="badge-free">無料・商用利用OK</span>
+            </div>
+        </header>
+
+        <!-- 使い方ガイドコンテンツ -->
+        <div class="terms-box">
+            <h1 class="terms-title">使い方ガイド（OBSへの導入方法）</h1>
+
+            <div class="terms-section">
+                <h2>STEP 1：ZIPファイルのダウンロードと展開</h2>
+                <p>トップページから好きなモーションをダウンロードします。ダウンロードしたZIPファイルをパソコン上で展開（解凍）してください。</p>
+                <div class="notice-box">
+                    <p>※ZIPを展開して出てきたフォルダを開くと、中にモーションと同じ名前のフォルダが入っています。作業はその中のフォルダで行います！</p>
+                </div>
+            </div>
+
+            <div class="terms-section">
+                <h2>STEP 2：画像を入れてファイル名を合わせる</h2>
+                <p>展開したフォルダの中（HTMLファイルと同じ階層）に、使いたいあなたのPNG画像を入れてください。</p>
+                <p>その後、フォルダ内にある「必ずお読み下さい.txt」を開いて利用規約を確認しつつ、<strong>テキスト内に記載されているファイル名に変更（リネーム）</strong>してください。</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>STEP 3：OBSにブラウザソースを追加する</h2>
+                <p>OBSを開き、ソースの「＋」ボタンから<strong>「ブラウザソース」</strong>を追加します。</p>
+                <ul>
+                    <li><strong>「ローカルファイル」</strong>の項目にチェックを入れます。</li>
+                    <li>「参照」ボタンを押し、先ほどのフォルダ内にあるHTMLファイルを選択します。</li>
+                    <li>幅や高さはOBSのキャンバスのサイズに設定してください。</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2>STEP 4：位置を調整して完了！</h2>
+                <p>OBSのプレビュー画面上で素材が可愛く動いているのを確認したら、お好みの大きさに縮小・拡大し、配信画面の好きな場所に配置して完了です！お疲れ様でした！✨</p>
+            </div>
+        </div>
+
+        <!-- トップに戻るボタン -->
+        <div class="back-link-area">
+            <a href="index.html" class="btn-back">トップページに戻る</a>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer>
+        &copy; 好きな画像でOBS素材を作れる「まるキット」
+    </footer>
+
+</body>
+</html>
