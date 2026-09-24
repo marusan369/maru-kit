@@ -48,6 +48,18 @@ const materials = [
         available: true
     },
     {
+        name: "上下移動",
+        video: "preview/上下移動.mp4",
+        zip: "zip/jouge_idou.zip",
+        available: true
+    },
+    {
+        name: "左右移動",
+        video: "preview/左右移動.mp4",
+        zip: "zip/sayuu_idou.zip",
+        available: true
+    },
+    {
         name: "バウンド移動（ゆっくり）",
         video: "preview/バウンド移動_ゆっくり.mp4",
         zip: "zip/bound_idou_yukkuri.zip",
