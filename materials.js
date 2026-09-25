@@ -72,6 +72,18 @@ const materials = [
         available: true
     },
     {
+        name: "くるくる揺れ",
+        video: "preview/くるくる揺れ.mp4",
+        zip: "zip/kurukuru_yure.zip",
+        available: true
+    },
+    {
+        name: "ぴょんぴょん",
+        video: "preview/ぴょんぴょん.mp4",
+        zip: "zip/pyon_pyon.zip",
+        available: true
+    },
+    {
         name: "バウンド移動（ゆっくり）",
         video: "preview/バウンド移動_ゆっくり.mp4",
         zip: "zip/bound_idou_yukkuri.zip",
