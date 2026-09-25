@@ -301,7 +301,7 @@
             margin-top: 40px;
         }
 
-        /* レスポンシブ対応 (PCサイト想定ですが念のため) */
+        /* レスポンシブ対応 */
         @media (max-width: 1024px) {
             .grid-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -330,15 +330,15 @@
         <!-- 注意書き・サポートセクション -->
         <div class="notice-box">
             <h3>ご利用前の注意点・サポート</h3>
-            <p style="color: #d9534f; font-weight: bold;">※JPG、GIF、WebP等の画像には対応していません。PNG形式の画像のみ対応しています。（拡張子が[png]のアニメーションPNGは使用できる場合があります。）</p>
+            <p style="color: #d9534f; font-weight: bold;">※JPG、GIF、WebP等の画像には対応していません。PNG形式の画像のみ対応しています。（拡張子が[png]のアニメーションPNGを使用したい場合は必ず正方形にして（target.png）にファイル名を変更してください）</p>
             
-            <p>素材PNG画像の推奨サイズは<strong>1080×1080px以内</strong>です。極端に大きな画像を使用すると、アニメーションの仕様上はみ出したり切れたりする場合がありますので、あらかじめ縮小してご使用ください。</p>
+            <p>素材にする画像は、下のツールから<strong>使用できる状態（target.png）</strong>に自動変換してからフォルダに入れてご使用ください。</p>
             
             <!-- すぐに使える簡易リサイズツール -->
             <div class="resize-tool-box">
-                <p class="resize-tool-desc">「大きすぎる画像を1000pxに縮小したい」ときはここから変換できます。※リサイズツールを使用すると、<strong>アニメーションPNGは静止画になる場合があります</strong>（大きな静止画PNGの縮小にご利用ください）</p>
+                <p class="resize-tool-desc">まずはサイトで利用したい画像を変換して使える状態の画像にしてください。</p>
                 <div>
-                    <label class="file-input-label" for="imageInput">PNG画像を選択して縮小</label>
+                    <label class="file-input-label" for="imageInput">画像を変換 (target.png)</label>
                     <input type="file" id="imageInput" accept="image/png">
                 </div>
             </div>
@@ -426,7 +426,7 @@
             });
         });
 
-        // 画像リサイズ機能のスクリプト
+        // 画像リサイズ・正方形化機能（target.pngとして出力）
         const imageInput = document.getElementById('imageInput');
         imageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -436,44 +436,52 @@
             reader.onload = function(event) {
                 const img = new Image();
                 img.onload = function() {
-                    let width = img.width;
-                    let height = img.height;
-                    const maxLimit = 1000;
+                    const canvasSize = 1000;
+                    let sWidth = img.width;
+                    let sHeight = img.height;
 
-                    // 長い方を1000pxに、短い方はアスペクト比を維持して自動計算
-                    if (width > height) {
-                        if (width > maxLimit) {
-                            height = Math.round((height * maxLimit) / width);
-                            width = maxLimit;
-                        }
+                    // 1000×1000の正方形キャンバスを作成
+                    const canvas = document.createElement('canvas');
+                    canvas.width = canvasSize;
+                    canvas.height = canvasSize;
+                    const ctx = canvas.getContext('2d');
+
+                    // 完全に透明な背景でクリア
+                    ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+                    // アスペクト比を維持して1000x1000の枠内に収まるサイズを計算
+                    let dWidth, dHeight, dX, dY;
+                    const ratio = sWidth / sHeight;
+
+                    if (ratio > 1) {
+                        // 横長の場合
+                        dWidth = canvasSize;
+                        dHeight = canvasSize / ratio;
+                        dX = 0;
+                        dY = (canvasSize - dHeight) / 2;
                     } else {
-                        if (height > maxLimit) {
-                            width = Math.round((width * maxLimit) / height);
-                            height = maxLimit;
-                        }
+                        // 縦長または正方形の場合
+                        dHeight = canvasSize;
+                        dWidth = canvasSize * ratio;
+                        dX = (canvasSize - dWidth) / 2;
+                        dY = 0;
                     }
 
-                    // キャンバスでリサイズ実行
-                    const canvas = document.createElement('canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
+                    // 中央に収まるように描画
+                    ctx.drawImage(img, dX, dY, dWidth, dHeight);
 
-                    // 自動ダウンロード処理
+                    // target.png として自動ダウンロード処理
                     canvas.toBlob(function(blob) {
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement('a');
                         a.href = url;
-                        // 元のファイル名に "_resized1000" をつけて保存
-                        const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-                        a.download = originalName + '_resized1000.png';
+                        a.download = 'target.png';
                         document.body.appendChild(a);
                         a.click();
                         document.body.removeChild(a);
                         URL.revokeObjectURL(url);
                         
-                        // 入力をリセット（同じファイルを連続で選択できるように）
+                        // 入力をリセット
                         imageInput.value = '';
                     }, 'image/png');
                 };
