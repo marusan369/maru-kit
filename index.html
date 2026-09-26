@@ -8,18 +8,15 @@
     <link rel="canonical" href="https://marusan369.github.io/maru-kit/">
     <meta name="description" content="好きなPNG画像を使って、配信や動画で使えるOBS素材を無料で作れる「まるキット」。プレビューで好きな動きを選んでダウンロードできます。商用利用もOKです。">
     
-    <!-- ファビコン・アイコン設定 -->
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <!-- OGP (SNSシェア用メタタグ) -->
     <meta property="og:title" content="好きなPNG画像でOBS素材を作れる「まるキット」">
     <meta property="og:description" content="好きなPNG画像を使って、配信や動画で使えるお洒落なOBS素材を無料で簡単に作れるサイトです！商用利用OK。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marusan369.github.io/maru-kit/">
     <meta property="og:image" content="https://marusan369.github.io/maru-kit/ogp-image.png">
     
-    <!-- X (Twitter) カード設定 -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@marusan_369xii">
     <meta name="twitter:title" content="好きなPNG画像でOBS素材を作れる「まるキット」">
@@ -106,6 +103,24 @@
         }
 
         .btn-header-link {
+            background-color: #ffffff;
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .btn-header-link:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-1px);
+        }
+
+        .btn-terms-link {
             background-color: transparent;
             color: var(--header-text);
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -117,7 +132,7 @@
             transition: all 0.2s ease;
         }
 
-        .btn-header-link:hover {
+        .btn-terms-link:hover {
             background-color: rgba(255, 255, 255, 0.1);
             border-color: var(--header-text);
         }
@@ -202,12 +217,22 @@
             display: none;
         }
 
-        /* 素材グリッド (自動生成される場所) */
+        /* ジャンル分けセクション・グリッド */
+        .genre-section {
+            margin-bottom: 40px;
+        }
+
+        .genre-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 24px;
-            margin-bottom: 60px;
         }
 
         .material-card {
@@ -238,11 +263,11 @@
             position: relative;
         }
 
-        .preview-box video {
+        .preview-box img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            display: none; 
+            display: block;
         }
 
         .material-name {
@@ -270,21 +295,6 @@
             cursor: pointer;
             border: none;
             transition: background-color 0.2s ease, opacity 0.2s ease;
-        }
-
-        .btn-preview {
-            background-color: #f2f4f3;
-            color: var(--text-sub);
-        }
-
-        .btn-preview:hover {
-            background-color: #e5e8e6;
-            color: var(--text-main);
-        }
-
-        .btn-preview.playing {
-            background-color: var(--primary-color);
-            color: white;
         }
 
         .btn-download {
@@ -323,24 +333,21 @@
 <body>
 
     <div class="container">
-        <!-- 共通ヘッダー -->
         <header>
             <a href="index.html" class="site-title-link">好きなPNG画像でOBS素材を作れる「まるキット」</a>
             <div class="header-right">
                 <span class="badge-free">無料・商用利用OK</span>
-                <a href="howto.html" class="btn-header-link">使い方</a>
-                <a href="terms.html" class="btn-header-link">利用規約</a>
+                <a href="howto.html" onclick="window.open(this.href, 'howtoWindow', 'width=800,height=700,scrollbars=yes'); return false;" class="btn-header-link">使い方を見る</a>
+                <a href="terms.html" class="btn-terms-link">利用規約</a>
             </div>
         </header>
 
-        <!-- 注意書き・サポートセクション -->
         <div class="notice-box">
             <h3>ご利用前の注意点・サポート</h3>
             <p style="color: #d9534f; font-weight: bold;">※JPG、GIF、WebP等の画像には対応していません。PNG形式の画像のみ対応しています。（拡張子が[png]のアニメーションPNGを使用したい場合は必ず正方形にして（target.png）にファイル名を変更してください）</p>
             
             <p>静止画の素材にするPNG画像は、下のツールから<strong>使用できる状態（target.png）</strong>に自動変換してからフォルダに入れてご使用ください。アニメーションPNGには対応していません。</p>
             
-            <!-- すぐに使える簡易リサイズツール -->
             <div class="resize-tool-box">
                 <p class="resize-tool-desc">まずはサイトで利用したいPNG画像を変換して使える状態の画像にしてください。※アニメーションPNG以外</p>
                 <div>
@@ -353,86 +360,104 @@
             気に入っていただけたなら、<a href="https://www.amazon.jp/hz/wishlist/ls/1QBBDR3F83E00?ref_=wl_share" target="_blank" rel="noopener noreferrer">Amazon欲しいものリスト</a>からのご支援もぜひお待ちしております。</p>
         </div>
 
-        <!-- 素材一覧（JavaScriptでここにカードが自動で埋め込まれます） -->
-        <div class="grid-container" id="materialGrid"></div>
+        <div id="genresContainer"></div>
     </div>
 
-    <!-- フッター -->
     <footer>
         &copy; 好きなPNG画像でOBS素材を作れる「まるキット」
         <p>&copy; 2026 Maru-Kit (Opened: 2026.09.23) All Rights Reserved.</p>
     </footer>
 
-    <!-- 素材データを読み込んで描画するJavaScript -->
     <script src="materials.js"></script>
     <script>
-        const gridContainer = document.getElementById('materialGrid');
+        const genresContainer = document.getElementById('genresContainer');
 
-        // materials.js で定義された配列をもとにカードを自動生成
+        const groupedMaterials = {};
         materials.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'material-card';
-
-            if (item.available) {
-                // 公開中の素材
-                card.innerHTML = `
-                    <div class="preview-box">
-                        <video class="preview-video" src="${item.video}" muted playsinline preload="metadata"></video>
-                    </div>
-                    <h4 class="material-name">${item.name}</h4>
-                    <div class="card-buttons">
-                        <button class="btn btn-preview toggle-preview-btn">プレビュー</button>
-                        <a href="${item.zip}" class="btn btn-download">DL</a>
-                    </div>
-                `;
-            } else {
-                // 準備中の素材
-                card.innerHTML = `
-                    <div class="preview-box"></div>
-                    <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
-                    <div class="card-buttons">
-                        <span class="btn btn-preview" style="opacity: 0.5; pointer-events: none;">プレビュー</span>
-                        <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DL</span>
-                    </div>
-                `;
+            const genre = item.genre || "基本の動き";
+            if (!groupedMaterials[genre]) {
+                groupedMaterials[genre] = [];
             }
-
-            gridContainer.appendChild(card);
+            groupedMaterials[genre].push(item);
         });
 
-        // プレビュー動画の再生・停止を制御する処理
-        document.querySelectorAll('.material-card').forEach(card => {
-            const button = card.querySelector('.toggle-preview-btn');
-            const video = card.querySelector('.preview-video');
+        for (const [genreName, items] of Object.entries(groupedMaterials)) {
+            // 「基本の動き」の場合はジャンルごとに分けない（タイトルもセクションも作らずにそのまま並べる場合、または非表示にする）
+            if (genreName === "基本の動き") {
+                const grid = document.createElement('div');
+                grid.className = 'grid-container';
+                grid.style.marginBottom = '40px';
 
-            if (!button || !video) return;
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'material-card';
 
-            button.addEventListener('click', function() {
-                if (video.paused) {
-                    video.currentTime = 0;
-                    video.style.display = 'block';
-                    video.play();
-                    this.textContent = '停止';
-                    this.classList.add('playing');
-                } else {
-                    video.pause();
-                    video.currentTime = 0;
-                    video.style.display = 'none';
-                    this.textContent = 'プレビュー';
-                    this.classList.remove('playing');
-                }
-            });
+                    if (item.available) {
+                        card.innerHTML = `
+                            <div class="preview-box">
+                                <img class="preview-img" src="${item.video}" alt="${item.name}">
+                            </div>
+                            <h4 class="material-name">${item.name}</h4>
+                            <div class="card-buttons">
+                                <a href="${item.zip}" class="btn btn-download">DLする</a>
+                            </div>
+                        `;
+                    } else {
+                        card.innerHTML = `
+                            <div class="preview-box"></div>
+                            <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
+                            <div class="card-buttons">
+                                <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DLする</span>
+                            </div>
+                        `;
+                    }
+                    grid.appendChild(card);
+                });
 
-            video.addEventListener('ended', function() {
-                video.pause();
-                video.currentTime = 0;
-                video.style.display = 'none';
-                button.textContent = 'プレビュー';
-                button.classList.remove('playing');
-            });
-        });
+                genresContainer.appendChild(grid);
+            } else {
+                const section = document.createElement('div');
+                section.className = 'genre-section';
 
-        // 画像リサイズ・正方形化機能（target.pngとして出力）
+                const title = document.createElement('h3');
+                title.className = 'genre-title';
+                title.textContent = genreName;
+                section.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'grid-container';
+
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'material-card';
+
+                    if (item.available) {
+                        card.innerHTML = `
+                            <div class="preview-box">
+                                <img class="preview-img" src="${item.video}" alt="${item.name}">
+                            </div>
+                            <h4 class="material-name">${item.name}</h4>
+                            <div class="card-buttons">
+                                <a href="${item.zip}" class="btn btn-download">DLする</a>
+                            </div>
+                        `;
+                    } else {
+                        card.innerHTML = `
+                            <div class="preview-box"></div>
+                            <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
+                            <div class="card-buttons">
+                                <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DLする</span>
+                            </div>
+                        `;
+                    }
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                genresContainer.appendChild(section);
+            }
+        }
+
         const imageInput = document.getElementById('imageInput');
         imageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -446,48 +471,43 @@
                     let sWidth = img.width;
                     let sHeight = img.height;
 
-                    // 1000×1000の正方形キャンバスを作成
                     const canvas = document.createElement('canvas');
                     canvas.width = canvasSize;
                     canvas.height = canvasSize;
                     const ctx = canvas.getContext('2d');
 
-                    // 完全に透明な背景でクリア
                     ctx.clearRect(0, 0, canvasSize, canvasSize);
 
-                    // アスペクト比を維持して1000x1000の枠内に収まるサイズを計算
                     let dWidth, dHeight, dX, dY;
                     const ratio = sWidth / sHeight;
 
                     if (ratio > 1) {
-                        // 横長の場合
                         dWidth = canvasSize;
                         dHeight = canvasSize / ratio;
                         dX = 0;
                         dY = (canvasSize - dHeight) / 2;
                     } else {
-                        // 縦長または正方形の場合
                         dHeight = canvasSize;
                         dWidth = canvasSize * ratio;
                         dX = (canvasSize - dWidth) / 2;
                         dY = 0;
                     }
 
-                    // 中央に収まるように描画
                     ctx.drawImage(img, dX, dY, dWidth, dHeight);
 
-                    // target.png として自動ダウンロード処理
                     canvas.toBlob(function(blob) {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'target.png';
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        URL.revokeObjectURL(url);
+                        const confirmed = window.confirm("画像の変換が完了しました。target.pngとしてダウンロードしますか？");
+                        if (confirmed) {
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'target.png';
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        }
                         
-                        // 入力をリセット
                         imageInput.value = '';
                     }, 'image/png');
                 };

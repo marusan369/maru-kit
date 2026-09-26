@@ -162,7 +162,7 @@
             font-size: 0.9em;
         }
 
-        /* トップに戻るボタン用エリア */
+        /* ウィンドウを閉じるボタン用エリア */
         .back-link-area {
             text-align: center;
             margin-top: 20px;
@@ -178,6 +178,8 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 600;
+            border: none;
+            cursor: pointer;
             transition: opacity 0.2s ease;
         }
 
@@ -252,9 +254,9 @@
             </div>
         </div>
 
-        <!-- トップに戻るボタン -->
+        <!-- ウィンドウを閉じるボタン -->
         <div class="back-link-area">
-            <a href="index.html" class="btn-back">トップページに戻る</a>
+            <button onclick="window.close();" class="btn-back">ウィンドウを閉じる</button>
         </div>
     </div>
 
