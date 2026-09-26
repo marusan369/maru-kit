@@ -84,6 +84,18 @@ const materials = [
         available: true
     },
     {
+        name: "ふわふわ",
+        video: "preview/ふわふわ.mp4",
+        zip: "zip/huwa_huwa.zip",
+        available: true
+    },
+    {
+        name: "鼓動",
+        video: "preview/鼓動.mp4",
+        zip: "zip/kodou.zip",
+        available: true
+    },
+    {
         name: "バウンド移動（ゆっくり）",
         video: "preview/バウンド移動_ゆっくり.mp4",
         zip: "zip/bound_idou_yukkuri.zip",
