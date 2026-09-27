@@ -107,6 +107,12 @@ const materials = [
         zip: "zip/18_random_huusen.zip",
         available: true
     },
+    {
+        name: "モグラ叩き",
+        video: "preview/19_mogura_tataki.png",
+        zip: "zip/19_mogura_tataki.zip",
+        available: true
+    },
 
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
