@@ -89,6 +89,19 @@ const materials = [
         zip: "zip/15_bound_idou.zip",
         available: true
     },
+    {
+        name: "ポップアップ",
+        video: "preview/16_pop_up.png",
+        zip: "zip/16_pop_up.zip",
+        available: true
+    },
+    {
+        name: "ジグザグ移動",
+        video: "preview/17_jigu_zagu.png",
+        zip: "zip/17_jigu_zagu.zip",
+        available: true
+    },
+
 
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
