@@ -176,47 +176,6 @@
             opacity: 0.75;
         }
 
-        /* 簡易リサイズツールボックス */
-        .resize-tool-box {
-            background-color: #f0f7f4;
-            border: 1px dashed var(--primary-color);
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-top: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .resize-tool-desc {
-            font-size: 0.85rem;
-            color: var(--text-main);
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .file-input-label {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 650;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            display: inline-block;
-        }
-
-        .file-input-label:hover {
-            background-color: var(--primary-hover);
-        }
-
-        #imageInput {
-            display: none;
-        }
-
         /* ジャンル分けセクション・グリッド */
         .genre-section {
             margin-bottom: 40px;
@@ -344,20 +303,17 @@
 
         <div class="notice-box">
             <h3>ご利用前の注意点・サポート</h3>
-            <p style="color: #d9534f; font-weight: bold;">※JPG、GIF、WebP等の画像には対応していません。PNG形式の画像のみ対応しています。（拡張子が[png]のアニメーションPNGを使用したい場合は必ず正方形にして（target.png）にファイル名を変更してください）</p>
+            <p style="color: #d9534f; font-weight: bold;">※JPG、GIF、WebP等の画像には対応していません。PNG形式の画像のみ対応しています。</p>
             
-            <p>静止画の素材にするPNG画像は、下のツールから<strong>使用できる状態（target.png）</strong>に自動変換してからフォルダに入れてご使用ください。アニメーションPNGには対応していません。</p>
-            
-            <div class="resize-tool-box">
-                <p class="resize-tool-desc">まずはサイトで利用したいPNG画像を変換して使える状態の画像にしてください。※アニメーションPNG以外</p>
-                <div>
-                    <label class="file-input-label" for="imageInput">画像を変換 (target.png)</label>
-                    <input type="file" id="imageInput" accept="image/png">
-                </div>
+            <!-- ここを大きく目立たせるように変更 -->
+            <div style="background-color: #eafaf1; border: 2px solid #1b8a5a; padding: 14px 18px; border-radius: 8px; margin: 14px 0;">
+                <p style="margin: 0; font-size: 1.05rem; font-weight: bold; color: #1b8a5a; text-align: center;">
+                    ご使用になるPNG画像の名前を<span style="background-color: #1b8a5a; color: #ffffff; padding: 2px 8px; border-radius: 4px; font-size: 1.1rem;">「target.png」</span>にしてフォルダ内に配置してください。
+                </p>
             </div>
 
-            <p style="margin-top: 16px;">不具合報告や使い方の不明点などは、<a href="https://x.com/marusan_369xii" target="_blank" rel="noopener noreferrer">制作者のX（Twitter）</a>までお気軽にご連絡ください。<br>
-            気に入っていただけたなら、<a href="https://www.amazon.jp/hz/wishlist/ls/1QBBDR3F83E00?ref_=wl_share" target="_blank" rel="noopener noreferrer">Amazon欲しいものリスト</a>からのご支援もぜひお待ちしております。</p>
+            <p style="margin-top: 16px;">不具合報告や使い方の不明点などは、<br><a href="https://x.com/marusan_369xii" target="_blank" rel="noopener noreferrer">制作者のX（Twitter）</a>までお気軽にご連絡ください。<br>
+            気に入っていただけたなら、<br><a href="https://www.amazon.jp/hz/wishlist/ls/1QBBDR3F83E00?ref_=wl_share" target="_blank" rel="noopener noreferrer">Amazon欲しいものリスト</a>からのご支援もぜひお待ちしております。</p>
         </div>
 
         <div id="genresContainer"></div>
@@ -382,7 +338,6 @@
         });
 
         for (const [genreName, items] of Object.entries(groupedMaterials)) {
-            // 「基本の動き」の場合はジャンルごとに分けない（タイトルもセクションも作らずにそのまま並べる場合、または非表示にする）
             if (genreName === "基本の動き") {
                 const grid = document.createElement('div');
                 grid.className = 'grid-container';
@@ -457,64 +412,6 @@
                 genresContainer.appendChild(section);
             }
         }
-
-        const imageInput = document.getElementById('imageInput');
-        imageInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvasSize = 1000;
-                    let sWidth = img.width;
-                    let sHeight = img.height;
-
-                    const canvas = document.createElement('canvas');
-                    canvas.width = canvasSize;
-                    canvas.height = canvasSize;
-                    const ctx = canvas.getContext('2d');
-
-                    ctx.clearRect(0, 0, canvasSize, canvasSize);
-
-                    let dWidth, dHeight, dX, dY;
-                    const ratio = sWidth / sHeight;
-
-                    if (ratio > 1) {
-                        dWidth = canvasSize;
-                        dHeight = canvasSize / ratio;
-                        dX = 0;
-                        dY = (canvasSize - dHeight) / 2;
-                    } else {
-                        dHeight = canvasSize;
-                        dWidth = canvasSize * ratio;
-                        dX = (canvasSize - dWidth) / 2;
-                        dY = 0;
-                    }
-
-                    ctx.drawImage(img, dX, dY, dWidth, dHeight);
-
-                    canvas.toBlob(function(blob) {
-                        const confirmed = window.confirm("画像の変換が完了しました。target.pngとしてダウンロードしますか？");
-                        if (confirmed) {
-                            const url = URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = 'target.png';
-                            document.body.appendChild(a);
-                            a.click();
-                            document.body.removeChild(a);
-                            URL.revokeObjectURL(url);
-                        }
-                        
-                        imageInput.value = '';
-                    }, 'image/png');
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        });
     </script>
 </body>
 </html>
