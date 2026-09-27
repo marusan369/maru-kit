@@ -101,7 +101,12 @@ const materials = [
         zip: "zip/17_jigu_zagu.zip",
         available: true
     },
-
+    {
+        name: "ランダム風船",
+        video: "preview/18_random_huusen.png",
+        zip: "zip/18_random_huusen.zip",
+        available: true
+    },
 
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
