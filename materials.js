@@ -119,6 +119,18 @@ const materials = [
         zip: "zip/19_mogura_tataki.zip",
         available: true
     },
+    {
+        name: "流れ星（右）",
+        video: "preview/21_nagarebosi_migi.png",
+        zip: "zip/21_nagarebosi_migi.zip",
+        available: true
+    },
+    {
+        name: "流れ星（左）",
+        video: "preview/22_nagarebosi_hidari.png",
+        zip: "zip/22_nagarebosi_hidari.zip",
+        available: true
+    },
 
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
