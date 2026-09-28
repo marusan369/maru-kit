@@ -108,6 +108,12 @@ const materials = [
         available: true
     },
     {
+        name: "ランダム風船沢山",
+        video: "preview/20_random_huusen_takusan.png",
+        zip: "zip/20_random_huusen_takusan.zip",
+        available: true
+    },
+    {
         name: "モグラ叩き",
         video: "preview/19_mogura_tataki.png",
         zip: "zip/19_mogura_tataki.zip",
