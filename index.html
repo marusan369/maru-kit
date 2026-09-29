@@ -324,65 +324,56 @@
         <p>&copy; 2026 Maru-Kit (Opened: 2026.09.23) All Rights Reserved.</p>
     </footer>
 
-    <script src="materials.js"></script>
+<script src="materials.js"></script>
     <script>
         const genresContainer = document.getElementById('genresContainer');
+        const ITEMS_PER_PAGE = 16; // 1ページあたりの表示数（4x4 = 16）
+        let currentPage = 1; // 現在のページ番号
 
-        const groupedMaterials = {};
-        materials.forEach(item => {
-            const genre = item.genre || "基本の動き";
-            if (!groupedMaterials[genre]) {
-                groupedMaterials[genre] = [];
-            }
-            groupedMaterials[genre].push(item);
-        });
+        function renderGallery() {
+            // 既存の表示をクリア
+            genresContainer.innerHTML = '';
 
-        for (const [genreName, items] of Object.entries(groupedMaterials)) {
-            if (genreName === "基本の動き") {
-                const grid = document.createElement('div');
-                grid.className = 'grid-container';
-                grid.style.marginBottom = '40px';
+            // 全データをジャンルごとにグループ化（現状はすべて「基本の動き」になります）
+            const groupedMaterials = {};
+            materials.forEach(item => {
+                const genre = item.genre || "基本の動き";
+                if (!groupedMaterials[genre]) {
+                    groupedMaterials[genre] = [];
+                }
+                groupedMaterials[genre].push(item);
+            });
 
-                items.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'material-card';
+            // 各ジャンルごとにページネーションを適用して描画
+            for (const [genreName, items] of Object.entries(groupedMaterials)) {
+                // 総ページ数を計算
+                const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+                
+                // 現在のページの範囲のデータだけを抽出（slice）
+                const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+                const endIndex = startIndex + ITEMS_PER_PAGE;
+                const currentItems = items.slice(startIndex, endIndex);
 
-                    if (item.available) {
-                        card.innerHTML = `
-                            <div class="preview-box">
-                                <img class="preview-img" src="${item.video}" alt="${item.name}">
-                            </div>
-                            <h4 class="material-name">${item.name}</h4>
-                            <div class="card-buttons">
-                                <a href="${item.zip}" class="btn btn-download">DLする</a>
-                            </div>
-                        `;
-                    } else {
-                        card.innerHTML = `
-                            <div class="preview-box"></div>
-                            <h4 class="material-name" style="color: #ccc;">（準備中）</h4>
-                            <div class="card-buttons">
-                                <span class="btn btn-download" style="opacity: 0.3; pointer-events: none;">DLする</span>
-                            </div>
-                        `;
-                    }
-                    grid.appendChild(card);
-                });
-
-                genresContainer.appendChild(grid);
-            } else {
+                // セクションの作成
                 const section = document.createElement('div');
-                section.className = 'genre-section';
+                section.className = genreName === "基本の動き" ? 'genre-section' : 'genre-section';
+                section.style.marginBottom = '20px';
 
-                const title = document.createElement('h3');
-                title.className = 'genre-title';
-                title.textContent = genreName;
-                section.appendChild(title);
+                // 基本の動き以外の場合はタイトルを表示
+                if (genreName !== "基本の動き") {
+                    const title = document.createElement('h3');
+                    title.className = 'genre-title';
+                    title.textContent = genreName;
+                    section.appendChild(title);
+                }
 
+                // グリッドの作成
                 const grid = document.createElement('div');
                 grid.className = 'grid-container';
+                grid.style.marginBottom = '24px';
 
-                items.forEach(item => {
+                // 現在のページのカードを生成
+                currentItems.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'material-card';
 
@@ -409,9 +400,74 @@
                 });
 
                 section.appendChild(grid);
+
+                // 2ページ以上ある場合のみ、ページネーションボタンを下に表示する
+                if (totalPages > 1) {
+                    const paginationDiv = document.createElement('div');
+                    paginationDiv.style.cssText = 'display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 40px;';
+
+                    // 「前へ」ボタン
+                    const prevBtn = document.createElement('button');
+                    prevBtn.textContent = '◀ 前へ';
+                    prevBtn.className = 'btn-header-link'; // 既存の綺麗なボタン流用
+                    prevBtn.style.cssText = 'background: #fff; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 6px 14px; cursor: pointer;';
+                    prevBtn.disabled = currentPage === 1;
+                    if (currentPage === 1) prevBtn.style.opacity = '0.4';
+                    prevBtn.onclick = () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            renderGallery();
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    };
+                    paginationDiv.appendChild(prevBtn);
+
+                    // ページ番号ボタン（1, 2, 3...）
+                    for (let i = 1; i <= totalPages; i++) {
+                        const pageBtn = document.createElement('button');
+                        pageBtn.textContent = i;
+                        pageBtn.style.cssText = `
+                            padding: 6px 12px;
+                            border-radius: 6px;
+                            font-weight: bold;
+                            cursor: pointer;
+                            border: 1px solid var(--primary-color);
+                            background-color: ${i === currentPage ? 'var(--primary-color)' : '#fff'};
+                            color: ${i === currentPage ? '#fff' : 'var(--primary-color)'};
+                        `;
+                        pageBtn.onclick = () => {
+                            currentPage = i;
+                            renderGallery();
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        };
+                        paginationDiv.appendChild(pageBtn);
+                    }
+
+                    // 「次へ」ボタン
+                    const nextBtn = document.createElement('button');
+                    nextBtn.textContent = '次へ ▶';
+                    nextBtn.className = 'btn-header-link';
+                    nextBtn.style.cssText = 'background: #fff; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 6px 14px; cursor: pointer;';
+                    nextBtn.disabled = currentPage === totalPages;
+                    if (currentPage === totalPages) nextBtn.style.opacity = '0.4';
+                    nextBtn.onclick = () => {
+                        if (currentPage < totalPages) {
+                            currentPage++;
+                            renderGallery();
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    };
+                    paginationDiv.appendChild(nextBtn);
+
+                    section.appendChild(paginationDiv);
+                }
+
                 genresContainer.appendChild(section);
             }
         }
+
+        // 初回描画
+        renderGallery();
     </script>
 </body>
 </html>
