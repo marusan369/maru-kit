@@ -131,7 +131,12 @@ const materials = [
         zip: "zip/22_nagarebosi_hidari.zip",
         available: true
     },
-
+    {
+        name: "もちもちジャンプ",
+        video: "preview/23_motimoti_Jump.png",
+        zip: "zip/23_motimoti_Jump.zip",
+        available: true
+    },
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
     { available: false },
