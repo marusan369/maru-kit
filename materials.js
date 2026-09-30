@@ -137,6 +137,18 @@ const materials = [
         zip: "zip/23_motimoti_Jump.zip",
         available: true
     },
+    {
+        name: "スライド（左右）",
+        video: "preview/24_suraido_sayuu.png",
+        zip: "zip/24_suraido_sayuu.zip",
+        available: true
+    },
+    {
+        name: "トコトコ往復",
+        video: "preview/25_tokotoko_ouhuku.png",
+        zip: "zip/25_tokotoko_ouhuku.zip",
+        available: true
+    },
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
     { available: false },
