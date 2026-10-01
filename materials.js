@@ -144,7 +144,7 @@ const materials = [
         available: true
     },
     {
-        name: "トコトコ往復",
+        name: "トコトコ往復（反転）",
         video: "preview/25_tokotoko_ouhuku.png",
         zip: "zip/25_tokotoko_ouhuku.zip",
         available: true
