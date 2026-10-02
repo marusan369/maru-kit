@@ -149,6 +149,18 @@ const materials = [
         zip: "zip/25_tokotoko_ouhuku.zip",
         available: true
     },
+    {
+        name: "複数落下（ランダム）",
+        video: "preview/26_hukusuu_rakka.png",
+        zip: "zip/26_hukusuu_rakka.zip",
+        available: true
+    },
+    {
+        name: "スライド（上下）",
+        video: "preview/27_suraido_jouge.png",
+        zip: "zip/27_suraido_jouge.zip",
+        available: true
+    },
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
     { available: false },
