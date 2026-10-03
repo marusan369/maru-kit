@@ -161,6 +161,18 @@ const materials = [
         zip: "zip/27_suraido_jouge.zip",
         available: true
     },
+    {
+        name: "ガクガク",
+        video: "preview/28_gaku_gaku.png",
+        zip: "zip/28_gaku_gaku.zip",
+        available: true
+    },
+    {
+        name: "ガクガク（ノイズ）",
+        video: "preview/29_gaku_gaku_noizu.png",
+        zip: "zip/29_gaku_gaku_noizu.zip",
+        available: true
+    },
 
     // 5番目以降（新しい素材ができたらここに書き足すだけでOK！）
     { available: false },
